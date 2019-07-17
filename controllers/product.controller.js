@@ -9,8 +9,7 @@ exports.test = function (req, res) {
 
 //Connexion
 exports.product_login = function (req, res, callback) {
-    
-  Product.find({ email: req.body.email })
+  Product.find({ pseudo: req.body.pseudo })
   .exec(function (err, Product) {
       if (err) {
         return res.status(404)
@@ -18,12 +17,13 @@ exports.product_login = function (req, res, callback) {
       else if (Product != undefined && Product.length){
         bcrypt.compare(req.body.password, Product[0].password, function (err, result) {
         if (result == true) {
-          req.session.userId = Product[0].id;
+          //req.session.userId = Product[0].id;
           // Si le mot de passe correspond a l'identifiant
-          return res.status(200).send(req.session.userId)
+          console.log("je passe la")
+          return res.sendStatus(200)
         } else {
           // Si le mot de passe ne correspond pas a l'identifiant
-          return res.status(404)
+          return res.sendStatus(404)
         }
       })
     } else{
@@ -61,7 +61,7 @@ exports.product_create = function (req, res) {
     
     );
     
-    Product.find( {email :product.email}, function (err, ProductFind) {
+    Product.find( {pseudo :product.pseudo}, function (err, ProductFind) {
         if (err) return next(err);
         if(ProductFind.length){
             console.log("utilisateur deja present")
