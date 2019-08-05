@@ -34,6 +34,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/user', product);
+app.use('/trajet', product);
 
 
 const port = 8080;

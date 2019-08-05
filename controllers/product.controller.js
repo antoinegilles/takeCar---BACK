@@ -1,4 +1,5 @@
 const Product = require('../models/product.model');
+const traject = require('../models/traject.model');
 var bcrypt = require('bcrypt');
 
 
@@ -19,7 +20,6 @@ exports.product_login = function (req, res, callback) {
         if (result == true) {
           //req.session.userId = Product[0].id;
           // Si le mot de passe correspond a l'identifiant
-          console.log("je passe la")
           return res.sendStatus(200)
         } else {
           // Si le mot de passe ne correspond pas a l'identifiant
@@ -48,7 +48,7 @@ exports.product_logout = function (req, res) {
       }
 };
 
-//Create
+//Create User
 exports.product_create = function (req, res) {
 
     let product = new Product(
@@ -85,12 +85,46 @@ exports.product_create = function (req, res) {
     
 };
 
-//read all
+//Create trajet
+exports.product_create_trajet = function (req, res) {
+
+  let trajet = new traject(
+      {
+        dateDepart: req.body.heureDepart,
+        heureDepart: req.body.heureDepart,
+        lieuDepart: req.body.lieuDepart,
+        lieuArrive: req.body.lieuArrive,
+        pseudo:req.body.pseudo
+      
+      }  
+    );
+    
+    console.log(trajet)
+
+    traject.create(trajet, function (error) {
+      if (error) {
+        return next(error);
+      } 
+      else {
+        return res.status(200).send("Produit créé")
+      }
+    });
+  }
+
+//read all user
 exports.product_all = function (req, res) {
     Product.find( function (err, product) {
         if (err) return next(err);
         res.json(product);
     })
+};
+
+//read all traject
+exports.product_all_traject = function (req, res) {
+  traject.find( function (err, traject) {
+      if (err) return next(err);
+      res.json(traject);
+  })
 };
 
 //read

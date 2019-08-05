@@ -7,12 +7,16 @@ const product_controller = require('../controllers/product.controller');
 // a simple test url to check that all of our files are communicating correctly.
 router.get('/test', product_controller.test);
 
-// create 
+// create user
 router.post('/create', product_controller.product_create);
+// create traject
+router.post('/create/traject', product_controller.product_create_trajet);
 // check login
 router.post('/login', product_controller.product_login);
 //read ALL product
 router.get('/read', product_controller.product_all);
+//read ALL trajects
+router.get('/read/trajet', product_controller.product_all_traject);
 // Get profil
 router.get('/profile', product_controller.product_all);
 //Logout
